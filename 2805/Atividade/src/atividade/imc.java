@@ -32,6 +32,8 @@ public class imc extends JFrame {
 	double imc = 0;
 	double resultado= 0;
 	private JTextField tfResultado;
+	private JTextField tfNome;
+	private JTextField tfImc;
 
 	
 	/**
@@ -56,7 +58,7 @@ public class imc extends JFrame {
 	public imc() {
 		setResizable(false);
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		setBounds(100, 100, 463, 648);
+		setBounds(100, 100, 932, 644);
 		contentPane = new JPanel();
 		contentPane.setBackground(new Color(42, 42, 42));
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
@@ -74,11 +76,11 @@ public class imc extends JFrame {
 		lblAltura.setForeground(new Color(255, 255, 255));
 		lblAltura.setFont(new Font("Arial", Font.PLAIN, 28));
 		lblAltura.setHorizontalAlignment(SwingConstants.CENTER);
-		lblAltura.setBounds(116, 0, 156, 74);
+		lblAltura.setBounds(118, 104, 156, 74);
 		panel.add(lblAltura);
 		
 		tfAltura = new JTextField();
-		tfAltura.setBounds(21, 58, 338, 64);
+		tfAltura.setBounds(23, 162, 338, 64);
 		panel.add(tfAltura);
 		tfAltura.setColumns(10);
 		
@@ -86,26 +88,38 @@ public class imc extends JFrame {
 		lblPeso.setHorizontalAlignment(SwingConstants.CENTER);
 		lblPeso.setForeground(Color.WHITE);
 		lblPeso.setFont(new Font("Arial", Font.PLAIN, 28));
-		lblPeso.setBounds(116, 130, 156, 74);
+		lblPeso.setBounds(118, 234, 156, 74);
 		panel.add(lblPeso);
 		
 		tfPeso = new JTextField();
 		tfPeso.setColumns(10);
-		tfPeso.setBounds(21, 191, 338, 64);
+		tfPeso.setBounds(23, 295, 338, 64);
 		panel.add(tfPeso);
 		
 		JLabel lblResultado = new JLabel("RESULTADO:");
 		lblResultado.setHorizontalAlignment(SwingConstants.CENTER);
 		lblResultado.setForeground(new Color(255, 255, 255));
 		lblResultado.setFont(new Font("Arial", Font.PLAIN, 28));
-		lblResultado.setBounds(90, 266, 215, 46);
+		lblResultado.setBounds(92, 370, 215, 46);
 		panel.add(lblResultado);
 		
 		tfResultado = new JTextField();
 		tfResultado.setEditable(false);
 		tfResultado.setColumns(10);
-		tfResultado.setBounds(21, 308, 338, 64);
+		tfResultado.setBounds(23, 412, 338, 64);
 		panel.add(tfResultado);
+		
+		JLabel lblNome = new JLabel("NOME");
+		lblNome.setBounds(118, -12, 156, 74);
+		panel.add(lblNome);
+		lblNome.setHorizontalAlignment(SwingConstants.CENTER);
+		lblNome.setForeground(Color.WHITE);
+		lblNome.setFont(new Font("Arial", Font.PLAIN, 28));
+		
+		tfNome = new JTextField();
+		tfNome.setBounds(23, 46, 338, 64);
+		panel.add(tfNome);
+		tfNome.setColumns(10);
 		
 		JButton btnNewButton = 	new JButton("CAUCULAR");
 		btnNewButton.setBounds(34, 538, 111, 36);
@@ -144,6 +158,25 @@ public class imc extends JFrame {
 			}
 		});
 		contentPane.add(btnSair);
+		
+		JPanel panel_1 = new JPanel();
+		panel_1.setLayout(null);
+		panel_1.setBackground(new Color(69, 69, 69));
+		panel_1.setBounds(494, 23, 391, 487);
+		contentPane.add(panel_1);
+		
+		JLabel lblImc = new JLabel("IMC");
+		lblImc.setHorizontalAlignment(SwingConstants.CENTER);
+		lblImc.setForeground(Color.WHITE);
+		lblImc.setFont(new Font("Arial", Font.PLAIN, 28));
+		lblImc.setBounds(125, 11, 156, 74);
+		panel_1.add(lblImc);
+		
+		tfImc = new JTextField();
+		tfImc.setEditable(false);
+		tfImc.setColumns(10);
+		tfImc.setBounds(30, 72, 338, 64);
+		panel_1.add(tfImc);
 	}
 
 public void coleta() {
@@ -156,21 +189,26 @@ public void limpar() {
 	tfAltura.setText("");
 	tfPeso.setText("");
 	tfResultado.setText("");
+	tfNome.setText("");
+	tfImc.setText("");
+	tfNome.requestFocus();
 }
 
 public void cauculo() {
 	imc = peso/(altura * altura);
+	df.applyLocalizedPattern("KG 00,00");
+	tfResultado.setText(df.format(imc));
 	
 	if (imc < 18.9) {
-		 tfResultado.setText("MUITO MAGRO" + "Seu IMC é" + imc);
+		tfImc.setText("MUITO MAGRO");
     } else if (imc < 24.9) {
-    	 tfResultado.setText("NORMAL" + "Seu IMC é"+ imc);
+    	tfImc.setText("NORMAL");
     } else if (imc < 29.9) {
-    	 tfResultado.setText("ACIMA DO PESO" + "Seu IMC é"+ imc);
+    	tfImc.setText("ACIMA DO PESO");
     } else if (imc < 39.9) {
-    	 tfResultado.setText("OBESO" + "Seu IMC é"+ imc );
+    	tfImc.setText("OBESO");
     } else {
-        tfResultado.setText("OBESIDADE GRAVE" + "Seu IMC é"+ imc);
+        tfImc.setText("OBESIDADE GRAVE");
     }
    
   }
